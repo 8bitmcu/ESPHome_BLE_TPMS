@@ -2,7 +2,7 @@
 
 A lot of research has already been done on BLE TPMS sensors, but it seems to me that there are slight variations of these sensors, with different formats. This is my work with one of these formats.
 
-The sensors I have starts with the MAC address "AC:15:85" and shows up with the name "BR" with a BLE scanning app. They are meant to be used with the SYTPMS mobile app. They Advertise a service as "0x27a5" with an empty payload. The manufacturer id and manufacturer data seems to contain the actual data we're interested in
+The sensors I bought from [AliExpress](https://www.aliexpress.com/item/1005004818524799.html) starts with the MAC address "AC:15:85" and shows up with the name "BR" with a BLE scanning app. They are meant to be used with the SYTPMS mobile app. They Advertise a service as "0x27a5" with an empty payload. The manufacturer id and manufacturer data seems to contain the actual data we're interested in
 
 We can get this data with the following snippet:
 ```
