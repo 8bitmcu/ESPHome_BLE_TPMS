@@ -28,8 +28,8 @@ sensor:
     state_class: "measurement"
   - platform: template
     name: "$devicename FL Pressure"
-    id: ble_fl_psi
-    unit_of_measurement: "psi"
+    id: ble_fl_press
+    unit_of_measurement: "bar"
     icon: "mdi:gauge"
     device_class: "pressure"
     state_class: "measurement"
@@ -50,8 +50,8 @@ sensor:
     state_class: "measurement"
   - platform: template
     name: "$devicename FR Pressure"
-    id: ble_fr_psi
-    unit_of_measurement: "psi"
+    id: ble_fr_press
+    unit_of_measurement: "bar"
     icon: "mdi:gauge"
     device_class: "pressure"
     state_class: "measurement"
@@ -72,8 +72,8 @@ sensor:
     state_class: "measurement"
   - platform: template
     name: "$devicename RL Pressure"
-    id: ble_rl_psi
-    unit_of_measurement: "psi"
+    id: ble_rl_press
+    unit_of_measurement: "bar"
     icon: "mdi:gauge"
     device_class: "pressure"
     state_class: "measurement"
@@ -94,8 +94,8 @@ sensor:
     state_class: "measurement"
   - platform: template
     name: "$devicename RR Pressure"
-    id: ble_rr_psi
-    unit_of_measurement: "psi"
+    id: ble_rr_press
+    unit_of_measurement: "bar"
     icon: "mdi:gauge"
     device_class: "pressure"
     state_class: "measurement"
@@ -120,9 +120,10 @@ esp32_ble_tracker:
             for (auto data : x.get_manufacturer_datas()) {
               const char *hexstring = data.uuid.to_string().substr(2,2).c_str();
               const float voltage = (float) strtol(hexstring, NULL, 16) * 0.1;
+              const int pressure = data.data[1] << 8 | data.data[2];
 
               id(ble_rr_temp).publish_state(data.data[0]);
-              id(ble_rr_psi).publish_state(float(data.data[2]) * 0.145);
+              id(ble_rr_press).publish_state((float) pressure * 0.001);
               id(ble_rr_batt).publish_state(voltage);
             }
 
@@ -133,9 +134,10 @@ esp32_ble_tracker:
             for (auto data : x.get_manufacturer_datas()) {
               const char *hexstring = data.uuid.to_string().substr(2,2).c_str();
               const float voltage = (float) strtol(hexstring, NULL, 16) * 0.1;
+              const int pressure = data.data[1] << 8 | data.data[2];
 
               id(ble_rl_temp).publish_state(data.data[0]);
-              id(ble_rl_psi).publish_state(float(data.data[2]) * 0.145);
+              id(ble_rl_press).publish_state((float) pressure * 0.001);
               id(ble_rl_batt).publish_state(voltage);
             }
 
@@ -146,9 +148,10 @@ esp32_ble_tracker:
             for (auto data : x.get_manufacturer_datas()) {
               const char *hexstring = data.uuid.to_string().substr(2,2).c_str();
               const float voltage = (float) strtol(hexstring, NULL, 16) * 0.1;
+              const int pressure = data.data[1] << 8 | data.data[2];
 
               id(ble_fr_temp).publish_state(data.data[0]);
-              id(ble_fr_psi).publish_state(float(data.data[2]) * 0.145);
+              id(ble_fr_press).publish_state((float) pressure * 0.001);
               id(ble_fr_batt).publish_state(voltage);
             }
 
@@ -159,8 +162,9 @@ esp32_ble_tracker:
             for (auto data : x.get_manufacturer_datas()) {
               const char *hexstring = data.uuid.to_string().substr(2,2).c_str();
               const float voltage = (float) strtol(hexstring, NULL, 16) * 0.1;
+              const int pressure = data.data[1] << 8 | data.data[2];
 
               id(ble_fl_temp).publish_state(data.data[0]);
-              id(ble_fl_psi).publish_state(float(data.data[2]) * 0.145);
+              id(ble_fl_press).publish_state((float) pressure * 0.001);
               id(ble_fl_batt).publish_state(voltage);
             }
