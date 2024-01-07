@@ -28,5 +28,9 @@ Using the following example: `0x1E00 1A:00:95:A4:79`,
 `00:95` is the pressure (14.9 kPa)
 
 
-# TPMS firmware in action
+## TPMS firmware in action
 ![Sensors](assets/sensors.png)
+
+## Similar work
+1. [TPMS](https://github.com/andi38/TPMS/) by andi38
+2. [BLE_TPMS](https://github.com/ra6070/BLE-TPMS) by ra6070
